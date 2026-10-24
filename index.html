@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>Abderrahmane Taleb — le chimiste de la Révolution</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      --green-flag: #006233;
+      --green-deep: #002b14;
+      --green-dark: #00190c;
+      --red-accent: #c22b2b;
+      --text-primary: #f4f7f4;
+      --text-secondary: #c2d1c7;
+      --glass-bg: rgba(0, 45, 25, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      
+      --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      --radius-card: 1.5rem;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--green-dark);
+      color: var(--text-primary);
+      line-height: 1.65;
+      font-weight: 300;
+      font-size: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      overflow-x: hidden;
+
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(0, 98, 51, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(194, 43, 43, 0.15) 0%, transparent 50%),
+        linear-gradient(180deg, #00190c 0%, #002b14 50%, #00150a 100%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .memorial-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    .hero {
+      position: relative;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), inset 0 0 0 1px var(--glass-border);
+      background-color: #0d1f14;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      /* صورة خلفية الهيرو: الجزائر العاصمة / القصبة */
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQptRYrDEh4TvbNJxm7OsmgmtD7a3pKspt1f_vSasZn29_uZgQrsOXFgaIC&s=10');
+      background-size: cover;
+      background-position: center 30%;
+      filter: sepia(0.5) hue-rotate(90deg) saturate(1.2) contrast(1.1) brightness(0.8);
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #03160b 0%, rgba(3, 22, 11, 0.85) 35%, rgba(3, 22, 11, 0) 65%);
+      z-index: 2;
+    }
+
+    .hero-flag {
+      position: absolute;
+      top: -30px;
+      left: -20px;
+      width: 180px;
+      height: auto;
+      z-index: 3;
+      opacity: 0.85;
+      transform: rotate(-10deg);
+      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+      pointer-events: none;
+      mask-image: radial-gradient(circle at 30% 30%, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at 30% 30%, black 40%, transparent 80%);
+    }
+
+    .hero-portrait {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      width: 50%;
+      z-index: 3;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    .hero-portrait img {
+      /* صورة الشهيد: صورة رجل تاريخي (يمكنك استبدالها بصورة عبد الرحمن طالب الحقيقية) */
+      height: 105%;
+      width: 100%;
+      object-fit: cover;
+      object-position: top center;
+      filter: grayscale(0.6) contrast(1.1) brightness(0.9);
+      mask-image: linear-gradient(to right, transparent 0%, black 25%, black 80%, transparent 100%),
+                  linear-gradient(to top, transparent 0%, black 20%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 80%, transparent 100%),
+                          linear-gradient(to top, transparent 0%, black 20%);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+    }
+
+    .hero-ribbon {
+      position: absolute;
+      bottom: 10px;
+      right: -20px;
+      width: 250px;
+      height: 100px;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0.8;
+      transform: rotate(-15deg);
+      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
+      mask-image: linear-gradient(to left, black 50%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      padding: 3rem 4rem;
+      max-width: 65%;
+    }
+
+    .hero-subtitle {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a0b8a8;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 3.4rem;
+      font-weight: 500;
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+      color: #ffffff;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      color: #d1dfd6;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+      max-width: 95%;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .hero-dates {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      background: rgba(0, 40, 20, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .hero-dates svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2;
+      opacity: 0.8;
+    }
+
+    /* ============================================================
+       CARDS GLOBAL
+       ============================================================ */
+    .card {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 15px 35px -10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s ease;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 45px -10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .card-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(0, 98, 51, 0.4);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      z-index: 2;
+    }
+    
+    .card-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .card-content {
+      flex: 1;
+      z-index: 2;
+    }
+
+    .card h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* ============================================================
+       INTRODUCTION CARD
+       ============================================================ */
+    .card-intro {
+      background: linear-gradient(90deg, rgba(0, 45, 25, 0.85) 0%, rgba(0, 50, 28, 0.7) 50%, rgba(0, 45, 25, 0.5) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 15px 35px -10px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .card-intro-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 0;
+      /* صورة خلفية المقدمة: منظر عام للجزائر */
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoGKQOvIidnhxhg98_hXMU5Aaw8HptM19u9N678eTL9ICITlReF2lSnVA&s=10');
+      background-size: cover;
+      background-position: center right;
+      filter: sepia(0.4) hue-rotate(90deg) saturate(1.2) contrast(1.2) brightness(0.7);
+      mask-image: linear-gradient(to left, black 20%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 20%, transparent 100%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-intro-motif {
+      position: absolute;
+      right: 15%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 120px;
+      height: auto;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.85;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    }
+
+    .card-intro .card-icon {
+      background: rgba(0, 60, 30, 0.6);
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+      margin-left: 1rem;
+    }
+
+    .card-intro .card-content {
+      padding-left: 0.5rem;
+      z-index: 2;
+      max-width: 60%;
+    }
+    
+    .card-intro h2 {
+      margin-bottom: 0.6rem;
+    }
+
+    /* ============================================================
+       JEUNESSE CARD
+       ============================================================ */
+    .card-jeunesse {
+      background: linear-gradient(135deg, rgba(0, 55, 30, 0.65) 0%, rgba(0, 40, 20, 0.55) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 2.5rem 2rem;
+    }
+
+    .card-jeunesse::before {
+      content: '';
+      position: absolute;
+      left: calc(2rem + 24px);
+      top: 50%;
+      bottom: -2rem;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green-flag) 0%, transparent 100%);
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    .card-jeunesse .card-icon {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+    }
+
+    .card-jeunesse .card-icon::after {
+      content: '';
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--green-flag);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green-flag);
+    }
+
+    .card-jeunesse .card-content {
+      max-width: 65%;
+      padding-right: 1rem;
+    }
+
+    .card-jeunesse .card-bg-image {
+      position: absolute;
+      right: 2rem;
+      top: 2rem;
+      bottom: 2rem;
+      width: 30%;
+      /* صورة القصبة / الجزائر القديمة */
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk9DrxcAyVEZLIeAGdES8RhNxaLxSshTB1SD8Q22z9LI4qi8yy0wd447s&s=10') center/cover;
+      border-radius: 12px;
+      z-index: 1;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+      filter: sepia(0.3) contrast(1.1) brightness(0.8);
+    }
+
+    /* ============================================================
+       ENGAGEMENT CARD
+       ============================================================ */
+    .card-engagement {
+      background: linear-gradient(90deg, rgba(0, 45, 25, 0.9) 0%, rgba(0, 55, 30, 0.7) 50%, rgba(0, 45, 25, 0.4) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 2.5rem 2rem;
+    }
+
+    .card-engagement .card-bg-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 0;
+      /* صورة المختبر / الكيمياء والثورة */
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRanRu7aT-LrkuKKHSrK-wVHkjfKsCD9AMAqqGQH_fu_w&s=10');
+      background-size: cover;
+      background-position: center left;
+      filter: sepia(0.4) hue-rotate(80deg) saturate(1.2) contrast(1.2) brightness(0.6);
+      mask-image: linear-gradient(to left, black 20%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 20%, transparent 100%);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .card-engagement .card-bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(194, 43, 43, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 20% 80%, rgba(0, 98, 51, 0.4) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .card-engagement .card-icon {
+      background: rgba(0, 60, 30, 0.6);
+      border-color: rgba(255,255,255,0.2);
+      margin-left: 1rem;
+    }
+
+    .card-engagement .card-content {
+      padding-left: 0.5rem;
+      z-index: 2;
+      max-width: 55%;
+    }
+
+    /* ============================================================
+       ARRESTATION CARD
+       ============================================================ */
+    .card-arrestation {
+      background: linear-gradient(90deg, rgba(50, 15, 15, 0.95) 0%, rgba(70, 20, 20, 0.85) 40%, rgba(40, 10, 10, 0.6) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 4px solid var(--red-accent);
+      padding: 2.5rem 2rem;
+      box-shadow: 0 15px 35px -10px rgba(50, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .card-arrestation .card-bg-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 55%;
+      z-index: 0;
+      /* صورة سجن باربروس (قلعة / سجن تاريخي) */
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRdDiLYSxUVZKcVlBm99ayWB7_ZmBXCkPalvJ-wj5h2p1VRiXwgzupzbg&s=10');
+      background-size: cover;
+      background-position: center;
+      filter: sepia(0.6) hue-rotate(330deg) saturate(0.8) contrast(1.2) brightness(0.6);
+      mask-image: linear-gradient(to left, black 30%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 30%, transparent 100%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-arrestation .card-bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(80, 20, 20, 0.4), transparent);
+      pointer-events: none;
+    }
+
+    .card-arrestation .card-icon {
+      background: rgba(194, 43, 43, 0.3);
+      border-color: rgba(194, 43, 43, 0.5);
+    }
+
+    .card-arrestation .card-content {
+      max-width: 60%;
+      padding-left: 0.5rem;
+    }
+
+    .arrestation-date-block {
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: right;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .arrestation-date-block .day {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      line-height: 1;
+      color: #ffffff;
+      font-weight: 500;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .arrestation-date-block .month-year {
+      font-size: 1rem;
+      color: #d1dfd6;
+      text-transform: capitalize;
+      margin-top: 0.2rem;
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .arrestation-date-block hr {
+      border: none;
+      height: 2px;
+      background: var(--red-accent);
+      width: 30px;
+      margin: 0.8rem 0 0 0;
+      border-radius: 2px;
+    }
+
+    /* ============================================================
+       HÉRITAGE CARD
+       ============================================================ */
+    .card-heritage {
+      background: linear-gradient(90deg, rgba(0, 45, 25, 0.9) 0%, rgba(0, 55, 30, 0.75) 50%, rgba(0, 45, 25, 0.5) 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2rem;
+      box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+      align-items: flex-start;
+    }
+
+    .card-heritage .card-bg-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 0;
+      /* صورة مقام الشهيد (نصب تذكاري) */
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvXHUNzcA4O8VXNIkRNZ1kZgYnnPtviVN1cHWRoIeSGw&s=10'); 
+      background-size: cover;
+      background-position: center;
+      filter: sepia(0.3) hue-rotate(70deg) saturate(1.1) contrast(1.1) brightness(0.8);
+      mask-image: linear-gradient(to left, black 30%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 30%, transparent 100%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-heritage .card-bg-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0, 45, 25, 0.6), transparent);
+      pointer-events: none;
+    }
+
+    .card-heritage .card-icon {
+      background: rgba(0, 60, 30, 0.6);
+      border-color: rgba(255,255,255,0.2);
+      margin-left: 1rem;
+    }
+
+    .card-heritage .card-content {
+      max-width: 60%;
+      padding-left: 0.5rem;
+      padding-top: 0.5rem;
+    }
+
+    /* ============================================================
+       CONCLUSION CARD
+       ============================================================ */
+    .card-conclusion {
+      background: linear-gradient(90deg, rgba(0, 45, 25, 0.95) 0%, rgba(0, 55, 30, 0.85) 50%, rgba(0, 45, 25, 0.7) 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-card);
+      padding: 2.5rem 2rem;
+      box-shadow: 0 15px 35px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+      align-items: center;
+    }
+
+    .card-conclusion .card-bg-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 0;
+      /* صورة العلم الجزائري / غروب الشمس */
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuXsRkX9Eu5io64IHE5zL4rscP1G3P_vMmOWYs1NX3ZYL4m-66_LCShVk&s=10');
+      background-size: cover;
+      background-position: center right;
+      filter: sepia(0.4) hue-rotate(340deg) saturate(1.1) contrast(1.1) brightness(0.6);
+      mask-image: linear-gradient(to left, black 20%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, black 20%, transparent 100%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .conclusion-flag {
+      position: absolute;
+      right: 38%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 90px;
+      height: auto;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.9;
+      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
+    }
+
+    .conclusion-quote {
+      position: absolute;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.3;
+      z-index: 2;
+      pointer-events: none;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+      opacity: 0.85;
+    }
+
+    .card-conclusion .card-icon {
+      background: rgba(0, 60, 30, 0.6);
+      border-color: rgba(255,255,255,0.2);
+      margin-left: 1rem;
+    }
+
+    .card-conclusion .card-content {
+      max-width: 50%;
+      padding-left: 0.5rem;
+      z-index: 2;
+    }
+
+    /* ============================================================
+       FOOTER DIVIDER
+       ============================================================ */
+    .footer-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .footer-divider .line {
+      height: 1px;
+      width: 100px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      position: relative;
+    }
+
+    .footer-divider .line::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .footer-divider .line-left::before {
+      right: 0;
+      background-color: var(--green-flag);
+    }
+
+    .footer-divider .line-right::before {
+      left: 0;
+      background-color: var(--red-accent);
+    }
+
+    .footer-divider svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--red-accent);
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+    }
+
+    /* ============================================================
+       RESPONSIVE (Mobile First)
+       ============================================================ */
+    @media (max-width: 850px) {
+      .hero {
+        flex-direction: column;
+        min-height: auto;
+        padding-top: 250px;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-desc {
+        margin: 0 auto 1.5rem;
+      }
+
+      .hero-portrait {
+        width: 100%;
+        height: 300px;
+        justify-content: center;
+        bottom: auto;
+        top: 0;
+      }
+
+      .hero-portrait img {
+        height: 100%;
+        width: 100%;
+        object-position: center 15%;
+        mask-image: linear-gradient(to top, #03160b 0%, black 40%);
+        -webkit-mask-image: linear-gradient(to top, #03160b 0%, black 40%);
+      }
+
+      .hero-overlay {
+        background: linear-gradient(to top, #03160b 0%, rgba(3, 22, 11, 0.8) 40%, transparent 100%);
+      }
+
+      .hero-flag {
+        width: 120px;
+        top: -10px;
+        left: -10px;
+      }
+
+      .hero-ribbon {
+        display: none;
+      }
+
+      .card, .card-engagement, .card-heritage, .card-jeunesse, .card-conclusion {
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+      }
+
+      .card-jeunesse::before,
+      .card-jeunesse .card-icon::after {
+        display: none;
+      }
+
+      .card-intro .card-content,
+      .card-engagement .card-content,
+      .card-heritage .card-content,
+      .card-conclusion .card-content {
+        max-width: 100%;
+        padding-left: 0;
+      }
+
+      .card-intro-bg,
+      .card-engagement .card-bg-image,
+      .card-arrestation .card-bg-image,
+      .card-heritage .card-bg-image,
+      .card-conclusion .card-bg-image {
+        width: 100%;
+        height: 150px;
+        position: relative;
+        order: 2;
+        margin-top: 1rem;
+        mask-image: none;
+        -webkit-mask-image: none;
+        border-radius: 8px;
+        border: none;
+      }
+      
+      .card-intro-motif,
+      .conclusion-flag {
+        display: none;
+      }
+
+      .card-intro .card-icon,
+      .card-engagement .card-icon,
+      .card-arrestation .card-icon,
+      .card-heritage .card-icon,
+      .card-conclusion .card-icon {
+        margin-left: 0;
+      }
+
+      .card-content, .card-jeunesse .card-content {
+        max-width: 100%;
+      }
+
+      .card-jeunesse .card-bg-image {
+        position: relative;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        width: 100%;
+        height: 180px;
+        margin-top: 1rem;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .arrestation-date-block {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        text-align: left;
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 1rem;
+      }
+      
+      .arrestation-date-block hr {
+        display: none;
+      }
+
+      .conclusion-quote {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        text-align: left;
+        margin-top: 1.5rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 1rem;
+      }
+
+      .card-icon {
+        margin-left: 0 !important;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero-title { font-size: 2rem; }
+      .card h2 { font-size: 1.5rem; }
+    }
+
+    /* Animations */
+    .card {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.4s ease;
+    }
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .card { opacity: 1; transform: none; transition: none; }
+      .card:hover { transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="memorial-container">
+
+    <!-- ============ HERO SECTION ============ -->
+    <header class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      
+      <svg class="hero-flag" viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="45" height="60" fill="#006233"/>
+        <rect x="45" y="0" width="45" height="60" fill="#ffffff"/>
+        <g transform="translate(45, 30)">
+          <path d="M -10,0 A 12,12 0 1,1 10,0 A 9.5,9.5 0 1,0 -10,0 Z" fill="#d21034"/>
+          <polygon points="0,-8 1.8,-2.5 7.6,-2.5 2.9,1.4 4.7,7 0,3.4 -4.7,7 -2.9,1.4 -7.6,-2.5 -1.8,-2.5" fill="#d21034"/>
+        </g>
+      </svg>
+
+      <div class="hero-portrait">
+        <!-- صورة الشهيد (صورة تاريخية لرجل) -->
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFu6-Ast5XQsW4cs4QJyVT0VcFiGOXtj7aNeXm6DV-gl8E7wa3TeOGN8XZ&s=10" alt="Portrait d'Abderrahmane Taleb">
+      </div>
+
+      <svg class="hero-ribbon" viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="45" height="60" fill="#006233"/>
+        <rect x="45" y="0" width="45" height="60" fill="#ffffff"/>
+        <g transform="translate(45, 30)">
+          <path d="M -10,0 A 12,12 0 1,1 10,0 A 9.5,9.5 0 1,0 -10,0 Z" fill="#d21034"/>
+          <polygon points="0,-8 1.8,-2.5 7.6,-2.5 2.9,1.4 4.7,7 0,3.4 -4.7,7 -2.9,1.4 -7.6,-2.5 -1.8,-2.5" fill="#d21034"/>
+        </g>
+      </svg>
+
+      <div class="hero-content">
+        <div class="hero-subtitle">Héros de la Révolution Algérienne</div>
+        <h1 class="hero-title">Abderrahmane Taleb,<br>le chimiste de la Révolution</h1>
+        <p class="hero-desc">Un jeune étudiant, un esprit brillant, un patriote au service de la liberté de son pays.</p>
+        <div class="hero-dates">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          5 mars 1930 — 24 avril 1958
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ INTRODUCTION ============ -->
+    <section class="card card-intro">
+      <div class="card-intro-bg"></div>
+      <svg class="card-intro-motif" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50, 50)">
+          <path d="M -15,0 A 18,18 0 1,1 15,0 A 14,14 0 1,0 -15,0 Z" fill="#d21034"/>
+          <polygon points="0,-12 2.7,-3.7 11.4,-3.7 4.3,1.4 7.1,10 0,4.6 -7.1,10 -4.3,1.4 -11.4,-3.7 -2.7,-3.7" fill="#d21034"/>
+        </g>
+      </svg>
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="card-content">
+        <h2>Introduction</h2>
+        <p>Durant la guerre de libération nationale, de nombreux Algériens ont sacrifié leur vie pour que leur pays retrouve sa liberté. Parmi ces héros figure Abderrahmane Taleb, un jeune étudiant dont le parcours témoigne du courage, du patriotisme et du dévouement à la patrie.</p>
+      </div>
+    </section>
+
+    <!-- ============ JEUNESSE ============ -->
+    <section class="card card-jeunesse">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </div>
+      <div class="card-content">
+        <h2>Sa jeunesse</h2>
+        <p>Abderrahmane Taleb est né le 5 mars 1930 dans la Casbah d’Alger. Élève sérieux et brillant, il a poursuivi ses études à l’université d’Alger, où il s’est spécialisé en chimie. À cette époque, le peuple algérien vivait sous la domination coloniale française et souffrait de nombreuses injustices. Cette situation a profondément marqué le jeune étudiant et renforcé son désir de voir son pays libre et indépendant.</p>
+      </div>
+      <div class="card-bg-image"></div>
+    </section>
+
+    <!-- ============ ENGAGEMENT ============ -->
+    <section class="card card-engagement">
+      <div class="card-bg-image"></div>
+      
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M10 2v7.31M14 9.31V2M8.5 2h7M12 22a3 3 0 0 0 3-3v-4.69a2 2 0 0 0-.58-1.42l-2.84-2.84a2 2 0 0 0-2.84 0L6.58 12.89A2 2 0 0 0 6 14.31V19a3 3 0 0 0 3 3h3z"/></svg>
+      </div>
+      <div class="card-content">
+        <h2>Son engagement dans la Révolution</h2>
+        <p>Lorsque la guerre de libération nationale a éclaté le 1er novembre 1954, Abderrahmane Taleb a choisi de s’engager dans la lutte pour l’indépendance. Il a rejoint le Front de libération nationale (FLN) et mis ses connaissances scientifiques au service de la Révolution. Grâce à sa formation en chimie, il a participé à la préparation d’explosifs destinés aux combattants. C’est ainsi qu’il est devenu l’une des figures connues de la bataille d’Alger. Son parcours montre que les étudiants ont eux aussi joué un rôle important dans la lutte pour la liberté.</p>
+      </div>
+    </section>
+
+    <!-- ============ ARRESTATION & MORT ============ -->
+    <section class="card card-arrestation">
+      <div class="card-bg-image"></div>
+      
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+      </div>
+      
+      <div class="card-content">
+        <h2>Son arrestation et sa mort</h2>
+        <p>Malheureusement, Abderrahmane Taleb a été arrêté en 1957 par les autorités françaises. Après avoir été jugé et condamné à mort, il a été guillotiné le 24 avril 1958, à la prison de Barberousse, à Alger. Il n’avait que 28 ans. Malgré son jeune âge, son engagement est resté associé à la détermination de ceux qui aspiraient à l’indépendance de leur patrie.</p>
+      </div>
+      
+      <div class="arrestation-date-block">
+        <div class="day">24</div>
+        <div class="month-year">avril<br>1958</div>
+        <hr>
+      </div>
+    </section>
+
+    <!-- ============ HÉRITAGE ============ -->
+    <section class="card card-heritage">
+      <div class="card-bg-image"></div>
+      
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      
+      <div class="card-content">
+        <h2>Son héritage</h2>
+        <p>Aujourd’hui, Abderrahmane Taleb est honoré comme l’un des martyrs de la Révolution algérienne. Son nom demeure présent dans la mémoire collective et a été donné à des établissements et à des lieux en Algérie. Son histoire rappelle aux jeunes générations que la liberté est le fruit de nombreux sacrifices et que la connaissance, le courage et le sens des responsabilités peuvent contribuer à servir la nation.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONCLUSION ============ -->
+    <section class="card card-conclusion">
+      <div class="card-bg-image"></div>
+      
+      <svg class="conclusion-flag" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(50, 50)">
+          <path d="M -15,0 A 18,18 0 1,1 15,0 A 14,14 0 1,0 -15,0 Z" fill="#d21034"/>
+          <polygon points="0,-12 2.7,-3.7 11.4,-3.7 4.3,1.4 7.1,10 0,4.6 -7.1,10 -4.3,1.4 -11.4,-3.7 -2.7,-3.7" fill="#d21034"/>
+        </g>
+      </svg>
+
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      
+      <div class="card-content">
+        <h2>Conclusion</h2>
+        <p>En conclusion, Abderrahmane Taleb n’était pas seulement un étudiant en chimie, mais aussi un jeune homme profondément attaché à son pays. Sa vie, bien que courte, demeure un symbole de dévouement et de sacrifice. Son parcours nous invite à préserver la mémoire de nos martyrs et à honorer leur héritage par le savoir, le travail et la contribution au développement de l’Algérie.</p>
+      </div>
+
+      <div class="conclusion-quote">
+        La mémoire<br>des martyrs<br>éclaire notre avenir
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer-divider">
+      <div class="line line-left"></div>
+      <svg viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="45" height="60" fill="#006233" rx="4"/>
+        <rect x="45" y="0" width="45" height="60" fill="#ffffff" rx="4"/>
+        <g transform="translate(45, 30)">
+          <path d="M -8,0 A 10,10 0 1,1 8,0 A 8,8 0 1,0 -8,0 Z" fill="#c22b2b"/>
+          <polygon points="0,-7 1.6,-2.2 6.7,-2.2 2.6,1.2 4.2,6.2 0,3 -4.2,6.2 -2.6,1.2 -6.7,-2.2 -1.6,-2.2" fill="#c22b2b"/>
+        </g>
+      </svg>
+      <div class="line line-right"></div>
+    </footer>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (prefersReducedMotion) {
+        cards.forEach(card => card.classList.add('visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      cards.forEach(card => observer.observe(card));
+    });
+  </script>
+</body>
+</html>
